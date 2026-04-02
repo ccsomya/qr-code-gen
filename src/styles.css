@@ -114,3 +114,33 @@ button {
     background-color: #0f0f0f69;
   }
 }
+/* --- NEW PRINT FIX FOR LINUX PDF/PRINTING --- */
+@media print {
+  /* 1. Hide margins and unnecessary space */
+  .container {
+    padding-top: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* 2. Hide everything except the QR code (Buttons, Title, Inputs) */
+  button, input, h1, .row, p {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* 3. Force the QR Code to stay centered and within the paper width */
+  /* This targets the generated image or canvas */
+  img, canvas {
+    display: block !important;
+    margin: 0 auto !important;
+    max-width: 3.5in !important; /* Forces it to fit standard paper */
+    height: auto !important;
+    visibility: visible !important;
+  }
+
+  /* 4. Ensure white background for the PDF */
+  :root {
+    background-color: white !important;
+    color: black !important;
+  }
+}
