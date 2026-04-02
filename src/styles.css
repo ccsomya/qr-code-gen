@@ -114,38 +114,53 @@ button {
     background-color: #0f0f0f69;
   }
 }
-/* --- FINAL PRINT FIX: CENTERED & FULL QR --- */
+/* --- ULTIMATE PRINT FIX: FORCED CENTERING --- */
 @media print {
-  /* 1. Setup the page layout for printing */
   @page {
-    size: auto;
-    margin: 0mm; /* Removes browser headers/footers */
+    margin: 0; /* Removes default browser headers/footers */
   }
 
-  /* 2. Hide everything that isn't the QR code */
+  /* 1. Hide everything except the QR */
   button, input, h1, .row, p, .logo, a {
     display: none !important;
   }
 
-  /* 3. Force the container to fill the paper and center the content */
-  body, .container, .container > div {
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important; /* Centers vertically */
-    align-items: center !important;     /* Centers horizontally */
-    height: 100vh !important;           /* Uses full page height */
-    width: 100% !important;
+  /* 2. Reset the background and force the page to be a "centering box" */
+  html, body {
+    height: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
     background-color: white !important;
   }
 
-  /* 4. Ensure the QR code is visible and correctly sized */
+  /* 3. The "Force Center" Container */
+  .container {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important; /* Horizontal */
+    align-items: center !important;     /* Vertical */
+    position: fixed !important;         /* Locks it to the page area */
+    top: 0;
+    left: 0;
+    width: 100vw !important;
+    height: 100vh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* 4. Target the inner QR wrapper */
+  .container > div {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  /* 5. Size the QR code so it's large but safe */
   img, canvas {
     display: block !important;
-    max-width: 70% !important; /* Keeps it from hitting the edges */
+    width: 60% !important; /* Fixed percentage is safer than 70% */
+    max-width: 4in !important; 
     height: auto !important;
-    box-shadow: none !important;
-    margin: 0 auto !important;
+    margin: auto !important;
   }
 }
