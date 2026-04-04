@@ -114,11 +114,10 @@ button {
     background-color: #0f0f0f69;
   }
 }
-/* --- ULTIMATE PRINT FIX: FORCED CENTERING --- */
-/* --- OLD SCHOOL PRINT CENTERING --- */
+/* --- DISTROSEA-PROOF PRINT FIX --- */
 @media print {
   @page {
-    size: letter; /* Explicitly tell it the paper size */
+    size: letter;
     margin: 0;
   }
 
@@ -127,26 +126,35 @@ button {
     display: none !important;
   }
 
-  /* 2. Manual centering using a large top margin */
-  .container {
-    display: block !important;
-    width: 100% !important;
-    padding-top: 3.5in !important; /* This manually pushes it to the center of an 11-inch page */
-    text-align: center !important;
+  /* 2. Reset everything to be transparent/white */
+  html, body {
     background-color: white !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 11in !important; /* Force standard letter height */
+    width: 8.5in !important;  /* Force standard letter width */
   }
 
-  /* 3. Ensure the QR wrapper is centered */
-  .container > div {
-    display: inline-block !important;
-    margin: 0 auto !important;
-  }
-
-  /* 4. Keep the image a safe size */
-  img, canvas {
+  /* 3. Force the container to be the size of the paper */
+  .container {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 8.5in !important;
+    height: 11in !important;
     display: block !important;
-    margin: 0 auto !important;
-    width: 3in !important; /* Fixed size is safer for old print engines */
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* 4. Lock the QR code into the center coordinates */
+  img, canvas {
+    position: absolute !important;
+    top: 50% !important;     /* Move to vertical middle */
+    left: 50% !important;    /* Move to horizontal middle */
+    transform: translate(-50%, -50%) !important; /* Pull it back to center itself */
+    width: 3.5in !important; /* Fixed size prevents cutting */
     height: auto !important;
+    display: block !important;
   }
 }
