@@ -115,52 +115,38 @@ button {
   }
 }
 /* --- ULTIMATE PRINT FIX: FORCED CENTERING --- */
+/* --- OLD SCHOOL PRINT CENTERING --- */
 @media print {
   @page {
-    margin: 0; /* Removes default browser headers/footers */
+    size: letter; /* Explicitly tell it the paper size */
+    margin: 0;
   }
 
-  /* 1. Hide everything except the QR */
+  /* 1. Hide everything else */
   button, input, h1, .row, p, .logo, a {
     display: none !important;
   }
 
-  /* 2. Reset the background and force the page to be a "centering box" */
-  html, body {
-    height: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
+  /* 2. Manual centering using a large top margin */
+  .container {
+    display: block !important;
+    width: 100% !important;
+    padding-top: 3.5in !important; /* This manually pushes it to the center of an 11-inch page */
+    text-align: center !important;
     background-color: white !important;
   }
 
-  /* 3. The "Force Center" Container */
-  .container {
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important; /* Horizontal */
-    align-items: center !important;     /* Vertical */
-    position: fixed !important;         /* Locks it to the page area */
-    top: 0;
-    left: 0;
-    width: 100vw !important;
-    height: 100vh !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
-  /* 4. Target the inner QR wrapper */
+  /* 3. Ensure the QR wrapper is centered */
   .container > div {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
+    display: inline-block !important;
+    margin: 0 auto !important;
   }
 
-  /* 5. Size the QR code so it's large but safe */
+  /* 4. Keep the image a safe size */
   img, canvas {
     display: block !important;
-    width: 60% !important; /* Fixed percentage is safer than 70% */
-    max-width: 4in !important; 
+    margin: 0 auto !important;
+    width: 3in !important; /* Fixed size is safer for old print engines */
     height: auto !important;
-    margin: auto !important;
   }
 }
